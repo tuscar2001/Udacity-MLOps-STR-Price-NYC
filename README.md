@@ -30,6 +30,7 @@ In this project you will build such a pipeline.
   * [Release the pipeline](#release-the-pipeline)
   * [Train the model on a new data sample](#train-the-model-on-a-new-data-sample)
 - [Cleaning up](#cleaning-up)
+- [General Issues and how they were resolved](#General-issues)
 
 ## Preliminary steps
 ### Fork the Starter kit
@@ -567,3 +568,11 @@ you have trained your new model on the new data.
 ## License
 
 [License](LICENSE.txt)
+
+### General-issues
+1. I had to create manually a Jupyter notebook under src/eda as I was not able to run the code below
+from the command line:
+
+```
+mlflow run src/eda
+```
