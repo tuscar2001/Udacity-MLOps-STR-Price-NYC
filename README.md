@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
@@ -576,3 +577,6 @@ from the command line:
 ```
 mlflow run src/eda
 ```
+=======
+# Udacity-MLOps-STR-Price-NYC
+>>>>>>> 534f7d52fd5509658f9890ecaf72da40cdf2cd8a
