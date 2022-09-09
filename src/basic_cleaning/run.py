@@ -24,7 +24,7 @@ def go(args):
     # YOUR CODE HERE     #
     ######################
     logger.info("Downloading and reading the artifact")
-    data_path = run.use_artifact(f"{args.input_artifact}")
+    data_path = run.use_artifact(args.input_artifact)
     local_path = artifact.file()
 
     logger.info("Dropping the outliers")
@@ -32,6 +32,24 @@ def go(args):
     max_price = args.max_price
     idx = df['price'].between(min_price, max_price)
     df = df[idx].copy()
+    
+    logger.info("Convert last_review to datetime")
+    df['last_review'] = pd.to_datetime(df['last_review'])
+
+
+    logger.info("Saving the results")
+    outfile = args.output_artifact
+    df.to_csv(outfile, index=False)
+
+    artifact = wandb.Artifact(
+        name = args.output_artifact,
+        type = args.output_type,
+        description = args.output_description
+    )
+
+    artifact.add_file(outfile)
+    run.log_artifact(artifact)
+
 
 if __name__ == "__main__":
 
@@ -40,43 +58,43 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--input_artifact", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type = str,
+        help = "Name of the input artifact"
         required=True
     )
 
     parser.add_argument(
         "--output_artifact", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type = str
+        help= "Name of the output artifact",
         required=True
     )
 
     parser.add_argument(
         "--output_type", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type = str
+        help = "Type of the artifact"
         required=True
     )
 
     parser.add_argument(
         "--output_description", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type = str 
+        help= "Description of the output"
         required=True
     )
 
     parser.add_argument(
         "--min_price", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type = float
+        help = "Minimum Price" 
         required=True
     )
 
     parser.add_argument(
         "--max_price", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type = float
+        help = "Maximum Price"
         required=True
     )
 
